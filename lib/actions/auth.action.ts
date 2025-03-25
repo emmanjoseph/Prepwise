@@ -116,20 +116,31 @@ export async function getCurrentUser(): Promise<User | null> {
     }
   }
 
-  export async function getInterviewsByUserId(userId:string):Promise<Interview[] | null> {
-    const interviews = await db
-    .collection("interviews")
-    .where("userId" , "==" , userId)
-    .orderBy("createdAt", "desc")
-    .get();
+ export async function getInterviewsByUserId(userId: string): Promise<Interview[] | null> {
+    try {
+        const interviewsSnapshot = await db
+            .collection("interviews")
+            .where("userid",'==', userId)
+            .orderBy("createdAt", "desc")
+            .get();
 
-    return interviews.docs.map((doc)=>(
-        {
-            id:doc.id,
-            ...doc.data()
+        console.log(`Fetched ${interviewsSnapshot.docs.length} interviews for userId: ${userId}`);
+
+        if (interviewsSnapshot.empty) {
+            console.log("No interviews found.");
+            return null;
         }
-    )) as Interview[];
-  }
+
+        return interviewsSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data()
+        })) as Interview[];
+    } catch (error) {
+        console.error("Error fetching interviews:", error);
+        return null;
+    }
+}
+
   // Check if user is authenticated
 export async function isAuthenticated() {
     const user = await getCurrentUser();
@@ -147,7 +158,7 @@ export async function isAuthenticated() {
     .collection("interviews")
     .orderBy("createdAt", "desc")
     .where("finalized" , '==' , true)
-    .where("userId" , '!=' , userId)
+    .where("userid" , '!=' , userId)
     .limit(limit)
     .get();
 
