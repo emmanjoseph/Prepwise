@@ -124,7 +124,7 @@ export async function getCurrentUser(): Promise<User | null> {
             .orderBy("createdAt", "desc")
             .get();
 
-        console.log(`Fetched ${interviewsSnapshot.docs.length} interviews for userId: ${userId}`);
+        // console.log(`Fetched ${interviewsSnapshot.docs.length} interviews for userId: ${userId}`);
 
         if (interviewsSnapshot.empty) {
             console.log("No interviews found.");
