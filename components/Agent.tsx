@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { vapi } from '@/lib/vapi.sdk';
 import { interviewer } from '@/constants';
+import { createFeedback } from '@/lib/actions/general.action';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -66,10 +67,12 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
     const handleGenerateFeedback = async (messages:SavedMessage[]) => {
         console.log("generate feedback here");
 
-        const {success,id} = {
-            success:true,
-            id:"feedback-id"
-        }
+        const {success,feedbackId:id} = await createFeedback({
+            interviewId:interviewId!,
+            userId:userId!,
+            transcript:messages
+        })
+
 
         if (success && id) {
             router.push(`/interview/${interviewId}/feedback`)
@@ -87,7 +90,7 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
             if(type === 'generate'){
                 router.push('/')
             }else{
-                handleGenerateFeedback()
+                handleGenerateFeedback(messages)
             }
         }
 
@@ -131,12 +134,7 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
 
     const latestMessage = messages[messages.length -1]?.content;
     const isCallInactiveOrFinished = callStatus === CallStatus.INACTIVE || callStatus === CallStatus.FINISHED;
-    // const messages = [
-    //     "Whats your name?",
-    //     "My name is Iris , nice to meet you"
-    // ]
 
-    // const latestMessage = messages[messages.length -1]
 
     return (
         <>
@@ -182,8 +180,8 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
                         <span className={cn('absolute animate-ping rounded-full opacity-75',
                             callStatus === CallStatus.CONNECTING && 'hidden' 
                         )}/>
-                        <span>
-                            {isCallInactiveOrFinished ? "Call" : "......"}
+                        <span className='text-sm'>
+                            {isCallInactiveOrFinished ? "Call" : "On call ..."}
                         </span>
                     </button>
                 ) : (

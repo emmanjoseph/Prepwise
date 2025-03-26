@@ -2,6 +2,7 @@
 
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function signUp(params:SignUpParams) {
     const {uid,name,email} = params;
@@ -168,4 +169,31 @@ export async function isAuthenticated() {
             ...doc.data()
         }
     )) as Interview[];
+  }
+
+  export async function Logout() {
+    const cookieStore = await cookies();
+
+    try {
+        cookieStore.set("session","", {
+            maxAge:0,
+            httpOnly:true,
+            secure:process.env.NODE_ENV === "production",
+            path:"/",
+            sameSite:"lax"
+        });
+
+        redirect("/sign-in")
+        return {
+            success:true,
+            message:"Logged out successfully"
+        }
+    } catch (error) {
+        console.log("Error logging out", error);
+        
+         return {
+            success: false,
+            message: "Failed to log out"
+        };
+    }
   }

@@ -26,8 +26,8 @@ const Home = async () => {
       <>
          <section className='card-cta'>
             <div className="flex flex-col gap-6 max-w-lg">
-               <h2>Get interview ready with AI-powered practice & feedback</h2>
-               <p className="text-lg">Practice real interview questions and get instant feedback</p>
+               <h2 className='text-xl'>Get interview ready with AI-powered practice & feedback</h2>
+               <p className="text-base"> AI Interviewer for developers. Practice real interview questions and get instant feedback.</p>
 
                <Button asChild className='btn-primary max-sm:w-full'>
                   <Link href="/interview">Start an Interview</Link>
@@ -44,7 +44,7 @@ const Home = async () => {
             <div className="interviews-section">
                {hasPastInterviews ? (
                   userInterviews.map((interview) => (
-                     <InterviewCard key={interview.id} {...interview} />
+                     <InterviewCard key={interview.id} {...interview} userId={user.id}/>
                   ))
                ) : (
                   <div className="flex items-center justify-center w-full py-14">
@@ -61,7 +61,7 @@ const Home = async () => {
             <div className="interviews-section">
                {hasUpcomingInterviews ? (
                   latestInterviews.map((interview) => (
-                     <InterviewCard key={interview.id} {...interview} />
+                     <InterviewCard key={interview.id} {...interview} userId={user.id}/>
                   ))
                ) : (
                   <div className="flex items-center justify-center w-full py-14">
