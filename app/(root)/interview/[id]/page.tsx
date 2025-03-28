@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 import Image from 'next/image';
 import { getRandomInterviewCover } from '@/utils';
-import DisplayTechIcons from '@/components/DisplayTechIcons';
+// import DisplayTechIcons from '@/components/DisplayTechIcons';
 import Agent from '@/components/Agent';
 import { getCurrentUser } from '@/lib/actions/auth.action';
 
@@ -19,6 +19,7 @@ const Page = async ({params}: RouteParams) => {
     }
   return (
     <>
+    <h2 className="text-lg font-semibold">Ready to start your interview just call</h2>
     <div className="flex flex-row gap-4 justify-between">
         <div className="flex flex-row gap-4 items-center max-sm:flex-col">
             <div className="flex flex-row gap-4 items-center">

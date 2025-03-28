@@ -53,21 +53,21 @@ const Navbar = () => {
           <DropdownMenuTrigger className="cursor-pointer">
             <Avatar>
               <AvatarFallback className="text-sm font-bold">
-                {getInitials(user?.name || "U")}
+                {getInitials(user?.name || "UN")}
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="dark-gradient">
             <DropdownMenuLabel>
-              <div>
-                <p>{user?.name}</p>
+              <div className="px-10 flex flex-col justify-start py-1">
+                <p className="text-base">{user?.name}</p>
                 <span className="text-xs">{user?.email}</span>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Button
-                className="w-full bg-red-500 text-white cursor-pointer hover:text-dark-100"
+                className="w-full bg-red-500 text-white cursor-pointer hover:text-dark-100 rounded-3xl h-12"
                 onClick={handleLogout}
               >
                 Logout

@@ -141,7 +141,7 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
             <div className='call-view'>
                 <div className="card-interviewer">
                     <div className="avatar">
-                        <Image src="/ai-avatar.png" alt='vapi' width={65} height={65}
+                        <Image src="/ai-avatar.png" alt='vapi' width={45} height={45}
                             className='object-cover'
                         />
                         {isSpeaking && <span className='animate-speak' />}
@@ -154,7 +154,7 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
 
                 <div className="card-border">
                     <div className='card-content'>
-                        <Image src="/user-avatar.png" alt='avatar' width={400} height={400} className='size-24 rounded-full object-cover' />
+                        <Image src="/man.png" alt='avatar' width={400} height={400} className='size-24 rounded-full object-cover' />
 
                         <h3 className="text-base font-medium">
                             {userName}
@@ -166,7 +166,7 @@ const Agent: React.FC<AgentProps> = ({ userName ,userId,type,interviewId,questio
             {messages.length > 0 && (
                 <div className="transcript-border">
                     <div className="transcript">
-                        <p className={cn('transition-opacity duration-500 opacity-0', 'animate-fadeIn opacity-100','text-[15px]')} key={latestMessage}>{latestMessage}</p>
+                        <p className={cn('transition-opacity duration-300 opacity-0', 'animate-fadeIn opacity-100','text-[15px]')} key={latestMessage}>{latestMessage}</p>
                     </div>
                 </div>
             )}
